@@ -10,7 +10,7 @@ namespace Tetris.Model
     {
         public BlockI(List<Part> grid) : base(grid)
         {
-            Color = Colors.Brown;
+            Color = Colors.SaddleBrown;
             Parts = new List<Part>() { new Part(this, 0, 1), new Part(this, 1, 1), new Part(this, 2, 1), new Part(this, 3, 1) };
         }
 

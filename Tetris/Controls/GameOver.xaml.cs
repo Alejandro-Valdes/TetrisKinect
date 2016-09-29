@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Kinect;
+using Microsoft.Kinect.Toolkit;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Tetris.Model;
 using Tetris.Model.UI;
 using Tetris.Model.UI.DisplayBehaviours;
-using Tetris.Model;
 
 namespace Tetris.Controls
 {
@@ -22,6 +12,12 @@ namespace Tetris.Controls
     /// </summary>
     public partial class GameOver : OverlayUserControl
     {
+        /// <summary>
+        /// miKinect,  this object represents the Kinect hooked up to the pc
+        /// we use it to access the data of the different streams (Video, Depth, Skeleton)
+        /// </summary>
+        private KinectSensor miKinect;
+
         #region Dependency Properties
         public static readonly DependencyProperty ScoreProperty = DependencyProperty.Register("Score", typeof(int), typeof(GameOver), new PropertyMetadata(new PropertyChangedCallback(Score_Changed)));
 
@@ -38,6 +34,26 @@ namespace Tetris.Controls
             DisplayBehaviour = new DisplayFadeIn(this);
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach (KinectSensor kinectConectado in KinectSensor.KinectSensors)
+            {
+                if (kinectConectado.Status == KinectStatus.Connected)
+                {
+                    this.miKinect = kinectConectado;
+                    break;
+                }
+            }
+
+            if (null != this.miKinect)
+            {
+                // Habilitamos el Stream de Skeleton
+                this.miKinect.SkeletonStream.Enable();
+                this.miKinect.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
+                kinectRegion.KinectSensor = this.miKinect;
+            }
+        }
+
         private void cmdSubmit_Click(object sender, RoutedEventArgs e)
         {
             Highscores.Instance.Add(Score, txtName.Text);
@@ -52,6 +68,11 @@ namespace Tetris.Controls
                 __this.grpName.Visibility = Visibility.Visible;
             else
                 __this.grpName.Visibility = Visibility.Hidden;
+        }
+
+        private void cmdQuit_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

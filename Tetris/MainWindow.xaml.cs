@@ -1,23 +1,14 @@
-﻿using System;
+﻿using Microsoft.Kinect;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Tetris.Model;
-using System.Windows.Media.Animation;
-using System.ComponentModel;
-using Tetris.Sounds;
-using Microsoft.Kinect;
-using System.IO;
 using System.Windows.Threading;
-using Tetris.Views;
+using Tetris.Model;
 
 namespace Tetris
 {

@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Kinect;
+using Microsoft.Kinect.Toolkit;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Tetris.Model;
 using Tetris.Model.UI;
 using Tetris.Model.UI.DisplayBehaviours;
-using Tetris.Model;
-using System.Threading;
-using System.Windows.Threading;
 
 namespace Tetris.Views
 {
@@ -70,14 +60,10 @@ namespace Tetris.Views
                 Settings.Instance.SoundPlayer.PlayResourceFile(new Uri("Tetris;component/Sounds/Effects/death.mp3", UriKind.Relative));
                 ctrlGameOver.Score = score;
                 ctrlGameOver.Show();
+                cmdMenu.Visibility = Visibility.Hidden;
             }
 
-            private void Tetris_IsPausedChanged()
-            {
-                if (Tetris.IsPaused)
-                    ctrlPause.Show();
-            }
-
+            /*
             private void ResumeGame_CanExecute(object sender, CanExecuteRoutedEventArgs e)
             {
                 e.CanExecute = true;
@@ -87,7 +73,7 @@ namespace Tetris.Views
             {
                 ctrlPause.Hide();
                 Tetris.ResumeGame();
-            }
+            }*/
 
             private void QuitGame_CanExecute(object sender, CanExecuteRoutedEventArgs e)
             {
@@ -96,8 +82,8 @@ namespace Tetris.Views
 
             private void QuitGame_Executed(object sender, ExecutedRoutedEventArgs e)
             {
-                ctrlPause.Hide();
                 ctrlGameOver.Hide();
+                cmdMenu.Visibility = Visibility.Visible;
                 this.Hide();
             }
 
@@ -119,6 +105,9 @@ namespace Tetris.Views
             }
         #endregion
 
-
+        private void cmdMenu_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:k="http://schemas.microsoft.com/kinect/2013"
              xmlns:controls="clr-namespace:Tetris.Controls"
              xmlns:model="clr-namespace:Tetris.Model.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="570" d:DesignWidth="500">
+             d:DesignHeight="700" d:DesignWidth="600">
     <model:OverlayUserControl.CommandBindings>
-        <CommandBinding Command="{x:Static model:Commands.ResumeGame}" CanExecute="ResumeGame_CanExecute" Executed="ResumeGame_Executed" />
         <CommandBinding Command="{x:Static model:Commands.QuitGame}" CanExecute="QuitGame_CanExecute" Executed="QuitGame_Executed" />
     </model:OverlayUserControl.CommandBindings>
     <Grid Style="{StaticResource ViewBackground}">
@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <controls:TetrisGrid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Tetris="{Binding}" />
         <controls:InfoControl Grid.Column="1" Grid.Row="0" Score="{Binding Path=Score}" Level="{Binding Path=Level}" ClearedLines="{Binding Path=ClearedLines}" NextBlock="{Binding Path=NextBlock}" Margin="10,0,0,0" />
-        <controls:PauseScreen x:Name="ctrlPause" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="Hidden" Opacity="0" />
         <controls:GameOver x:Name="ctrlGameOver" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="Hidden" Opacity="0" />
+        <k:KinectTileButton Click="cmdMenu_Click" Label="Menu" x:Name="cmdMenu" Height="Auto" Margin="20,95,18,19" Width="Auto" Background="Red" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </model:OverlayUserControl>

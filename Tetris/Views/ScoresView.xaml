@@ -3,20 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:k="http://schemas.microsoft.com/kinect/2013"
              xmlns:model="clr-namespace:Tetris.Model.UI"
              xmlns:control="clr-namespace:Tetris.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="400" x:Name="scores">
+             d:DesignHeight="700" d:DesignWidth="600" x:Name="scores" Loaded="Window_Loaded">
     <Grid DataContext="{Binding ElementName=scores}" Style="{StaticResource ViewBackground}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" MaxHeight="50" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Viewbox Grid.Row="0" StretchDirection="Both" Stretch="Uniform">
-            <TextBlock Text="High Scores" FontFamily="Calibri" FontWeight="Bold" />
+            <TextBlock Text="High Scores" FontFamily="Calibri" FontWeight="Bold" Height="17" />
         </Viewbox>
-        <DataGrid Grid.Row="1" Name="dgrHighscores" Margin="0,0,0,10"
+        <DataGrid Grid.Row="1" Name="dgrHighscores" Margin="0,4.667,0,0.333"
             CanUserSortColumns="False"
             CanUserResizeColumns="False"
             CanUserResizeRows="False"
@@ -27,24 +28,16 @@
             IsReadOnly="True"
             HorizontalScrollBarVisibility="Hidden"
             VerticalScrollBarVisibility="Hidden"
-            SizeChanged="dgrHighscores_SizeChanged">
+            SizeChanged="dgrHighscores_SizeChanged" Grid.Row="1">
+            <!--
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nr." Width="*" Binding="{Binding Path=Nr}" />
+                <DataGridTextColumn Header="Num." Width="2*" Binding="{Binding Path=Nr}" />
                 <DataGridTextColumn Header="Player" Width="6*" Binding="{Binding Path=Player}" />
-                <DataGridTextColumn Header="Score" Width="3*" Binding="{Binding Path=Points}" />
-            </DataGrid.Columns>
+                <DataGridTextColumn Header="Score" Width="4*" Binding="{Binding Path=Points}" />
+            </DataGrid.Columns>-->
         </DataGrid>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Name="cmdBack" Click="cmdBack_Click">
-                <Viewbox>
-                    <Label Content="Back" Foreground="White" />
-                </Viewbox>
-            </Button>
-        </Grid>
+        <k:KinectRegion x:Name="kinectRegion" Margin="0,32,0,0" Grid.Row="1" Grid.RowSpan="2">
+            <k:KinectTileButton Click="cmdBack_Click" Label="Back" x:Name="cmdBack" Height="Auto" Margin="10,377,10,10" Width="Auto" Background="Black" Grid.Row="2"/>
+        </k:KinectRegion>
     </Grid>
 </model:OverlayUserControl>

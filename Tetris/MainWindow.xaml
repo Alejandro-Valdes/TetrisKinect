@@ -3,46 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:Tetris.Views"
         xmlns:model="clr-namespace:Tetris.Model.UI"
-        Title="Tetris" Height="700" Width="600" MinHeight="180" MinWidth="151" 
+        Title="Tetris" Height="700" Width="600" MinHeight="480" MinWidth="350" 
         Loaded="Window_Loaded" 
         Closed="Window_Closed"
         KeyDown="Window_KeyDown" 
         KeyUp="Window_KeyUp" 
-        Deactivated="Window_Deactivated" 
+        ResizeMode="NoResize"
         x:Name="main" Style="{StaticResource ViewBackground}">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static model:Commands.StartGame}" CanExecute="StartGame_CanExecute" Executed="StartGame_Executed" />
-        <CommandBinding Command="{x:Static model:Commands.EnterSettings}" CanExecute="EnterSettings_CanExecute" Executed="EnterSettings_Executed" />
         <CommandBinding Command="{x:Static model:Commands.QuitApplication}" CanExecute="QuitApplication_CanExecute" Executed="QuitApplication_Executed" />
         <CommandBinding Command="{x:Static model:Commands.EnterScores}" CanExecute="EnterScores_CanExecute" Executed="EnterScores_Executed" />
-        <CommandBinding Command="{x:Static model:Commands.EnterCredits}" CanExecute="EnterCredits_CanExecute" Executed="EnterCredits_Executed" />
     </Window.CommandBindings>
     <Border Padding="5" x:Name="border">
-        <Grid Name="grid" DataContext="{Binding ElementName=main}">
+        <Grid Name="grid" DataContext="{Binding ElementName=main}" Margin="0,0,0,-0.333">
             <controls:Titlescreen x:Name="viewTitle" HorizontalAlignment="Right">
                 <controls:Titlescreen.Visibility>
                     <MultiBinding Converter="{StaticResource MultipleBoolToVisibilityConverter}">
                         <Binding ElementName="viewGame" Path="IsDisplayed" />
-                        <Binding ElementName="viewSettings" Path="IsDisplayed" />
                         <Binding ElementName="viewScores" Path="IsDisplayed" />
-                        <Binding ElementName="viewCredits" Path="IsDisplayed" />
                     </MultiBinding>
                 </controls:Titlescreen.Visibility>
             </controls:Titlescreen>
             <controls:GameView x:Name="viewGame" Visibility="Hidden" HorizontalAlignment="Stretch" Style="{StaticResource ViewBackground}" />
-            <controls:SettingsView x:Name="viewSettings" Visibility="Hidden" HorizontalAlignment="Stretch" Settings="{Binding Path=Settings}" Style="{StaticResource ViewBackground}" />
             <controls:ScoresView x:Name="viewScores" Visibility="Hidden" HorizontalAlignment="Stretch" Style="{StaticResource ViewBackground}" />
-            <controls:CreditsView x:Name="viewCredits" Visibility="Hidden" HorizontalAlignment="Stretch" Style="{StaticResource ViewBackground}" />
             
-            <Canvas Name="kinectJoints" Margin="10,10,0,10">
+            <Canvas Name="kinectJoints" Margin="0,0,0,0">
                 <Ellipse x:Name="PunteroPecho" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Black" RenderTransformOrigin="1.493,2.146" ></Ellipse>
                 <Ellipse x:Name="PunteroManoIzq" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Green" RenderTransformOrigin="1.493,2.146" ></Ellipse>
                 <Ellipse x:Name="PunteroManoDer" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Pink" RenderTransformOrigin="1.493,2.146" ></Ellipse>
                 <Ellipse x:Name="PunteroCadera" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Yellow" RenderTransformOrigin="1.493,2.146" ></Ellipse>
-                <Line Name="LineaIzq" Stroke="red" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" />
-                <Line Name="LineaDer" Stroke="red" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" />
-                <Line Name="LineaCadera" Stroke="blue" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" />
-                <Line Name="LineaManos" Stroke="green" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" />
+                <Line Name="LineaIzq" Stroke="red" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" Opacity="0.45"/>
+                <Line Name="LineaDer" Stroke="red" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" Opacity="0.45"/>
+                <Line Name="LineaCadera" Stroke="blue" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" Opacity="0.45"/>
+                <Line Name="LineaManos" Stroke="green" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" Opacity="0.45"/>
             </Canvas>
         </Grid>
     </Border>

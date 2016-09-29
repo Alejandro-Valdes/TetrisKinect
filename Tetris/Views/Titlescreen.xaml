@@ -8,19 +8,17 @@
              mc:Ignorable="d" 
              Height="700" Width="600" Loaded="Window_Loaded" Style="{StaticResource ViewBackground}">
     <Grid>
-        <Viewbox StretchDirection="Both" Stretch="Uniform">
-            <TextBlock Text="Tetris" FontFamily="Calibri" FontWeight="Bold" />
+        <Viewbox StretchDirection="Both" HorizontalAlignment="Center" Stretch="Uniform" Margin="35,0,29,537">
+            <TextBlock Text="Tetris Kinect" FontFamily="Calibri" FontWeight="Bold" />
         </Viewbox>
         <k:KinectSensorChooserUI HorizontalAlignment="Center" VerticalAlignment="Top" Name="sensorChooserUi" />
-        <Label x:Name="KinectStatus1" Content="Kinect Status Change"
-               HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="25"></Label>
         <k:KinectRegion x:Name="kinectRegion">
-            <Grid>
-                <k:KinectUserViewer Height="150" PrimaryUserColor="Violet" UserColoringMode="HighlightPrimary" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                </k:KinectUserViewer>
-                <k:KinectTileButton Name="cmdStart" Label="Start" Command="{x:Static model:Commands.StartGame}" Height="Auto" Margin="26,91,447,291" Width="Auto"/>
-                <k:KinectTileButton Name="cmdHighscore" Label="High Scores" Command="{x:Static model:Commands.EnterScores}" Height="Auto" Margin="236,91,237,291" Width="Auto"/>
-                <k:KinectTileButton Name="cmdSettings" Label="Settings" Command="{x:Static model:Commands.EnterSettings}" Height="Auto" Margin="425,91,48,291" Width="Auto"/>
+            <Grid Height="690" VerticalAlignment="Top">
+                <k:KinectTileButton Name="cmdStart" Label="Start" HorizontalAlignment="Center" Command="{x:Static model:Commands.StartGame}" Height="160" Margin="153,150,147,380" Width="300" Background="Blue"/>
+
+                <k:KinectTileButton Name="cmdHighscore" Label="High Scores" HorizontalAlignment="Center" Command="{x:Static model:Commands.EnterScores}" Height="160" Margin="153,319,147,211" Width="300" Background="Green"/>
+
+                <k:KinectTileButton Name="cmdQuit" Label="Quit" HorizontalAlignment="Center" Command="{x:Static model:Commands.QuitApplication}" Height="160" Margin="153,488,147,42" Width="300" Background="Red"/>
             </Grid>
         </k:KinectRegion>
     </Grid>

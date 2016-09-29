@@ -23,6 +23,7 @@ namespace Tetris
             Point coordenadaJoint = new Point();
             DispatcherTimer timer;
             Skeleton skeletonManos;
+
             /// <summary>
             /// miKinect,  this object represents the Kinect hooked up to the pc
             /// we use it to access the data of the different streams (Video, Depth, Skeleton)
@@ -49,7 +50,7 @@ namespace Tetris
             private void Window_Loaded(object sender, RoutedEventArgs e)
             {
                 //Start playing the background music
-                //Settings.MusicPlayer.PlayResourceFile(new Uri("Tetris;component/Sounds/Music/Gee.mp3", UriKind.Relative));
+                Settings.MusicPlayer.PlayResourceFile(new Uri("Tetris;component/Sounds/Music/Gee.mp3", UriKind.Relative));
 
                 // Buscamos el Kinect conectado a la computadora, mediante la propiedad KinectSensors, al descubrir el primer elemento con el estado Connected
                 // lo asignamos a nuestro objeto declarado al inicio (KinectSensor miKinect)
@@ -69,7 +70,6 @@ namespace Tetris
 
                     this.miKinect.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
 
-
                     // Asignamos el event handler que se llamara cada vez que SkeletonStream tenga un frame de datos disponible 
                     this.miKinect.SkeletonFrameReady += this.miKinectSkeletonFrameReady;
 
@@ -79,7 +79,7 @@ namespace Tetris
                         this.miKinect.Start();
 
                         timer = new DispatcherTimer();
-                        timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
+                        timer.Interval = new TimeSpan(0, 0, 0, 0, 1100);
                         timer.Tick += new EventHandler(checaManos);
                         timer.Tick += new EventHandler(checaPecho);
                         timer.IsEnabled = true;
@@ -103,7 +103,6 @@ namespace Tetris
                         LineaManos.X2 = this.ActualWidth;
                         LineaManos.Y1 = this.ActualHeight * .5;
                         LineaManos.Y2 = LineaManos.Y1;
-
                 }
                     catch (IOException)
                     {
@@ -125,18 +124,6 @@ namespace Tetris
                     viewGame.Tetris.StartGame();
                 }
 
-
-                private void EnterSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-                {
-                    e.CanExecute = true;
-                }
-
-                private void EnterSettings_Executed(object sender, ExecutedRoutedEventArgs e)
-                {
-                    viewSettings.Show();
-                }
-
-
                 private void QuitApplication_CanExecute(object sender, CanExecuteRoutedEventArgs e)
                 {
                     e.CanExecute = true;
@@ -156,16 +143,6 @@ namespace Tetris
                 {
                     viewScores.Show();
                 }
-
-                private void EnterCredits_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-                {
-                    e.CanExecute = true;
-                }
-
-                private void EnterCredits_Executed(object sender, ExecutedRoutedEventArgs e)
-                {
-                    viewCredits.Show();
-                }
             #endregion
 
             //Pass Key-Events to the Game
@@ -183,15 +160,8 @@ namespace Tetris
                     viewGame.Game_KeyUp(__key.Command);
             }
 
-            private void Window_Deactivated(object sender, EventArgs e)
-            {
-                if(viewGame.IsDisplayed && !viewGame.Tetris.IsPaused)
-                    viewGame.Tetris.PauseGame();
-            }
-
         private void Window_Closed(object sender, EventArgs e)
             {
-                //Serialize the settings
                 //Delete the temp files
                 Settings.Instance.MusicPlayer.Dispose();
                 Settings.Instance.SoundPlayer.Dispose();
@@ -201,6 +171,7 @@ namespace Tetris
                     this.miKinect.Stop();
                 }
         }   
+        #endregion
 
             #region OnPropertyChanged Event
                 public event PropertyChangedEventHandler PropertyChanged;
@@ -215,7 +186,6 @@ namespace Tetris
                     if (handler != null)
                         handler(this, new PropertyChangedEventArgs(property));
                 }
-        #endregion
         #endregion
 
         #region Kinect Methods
@@ -245,12 +215,9 @@ namespace Tetris
                     {
                         this.obtenerCoordenadaDeJoint(skeletonEncontrado);
                     }
-
                 }
             }
-
         }
-
 
         /// <summary>
         /// Obtiene las coordenadas del Joint seleccionado
@@ -269,12 +236,10 @@ namespace Tetris
                 miJoint = skeleton.Joints[jp.Joint];
                 dibujaJoint(miJoint, jp.Puntero);
             }
-
         }
 
         private void checaManos(object sender, EventArgs e)
         {
-
             if (skeletonManos != null)
             {
                 Joint miManoIzq = skeletonManos.Joints[JointType.HandLeft];
@@ -298,9 +263,9 @@ namespace Tetris
                         {
                             viewGame.Game_KeyDown(rotate);
                         }
-                        else
+                        /*else
                         {
-                        }
+                        }*/
                     }
                     else
                     {
@@ -319,8 +284,7 @@ namespace Tetris
             int iHeight = (int)this.ActualHeight;
 
             int ikChestLeftRegionEndX = (int)(iWidth * 0.3);
-            int ikChestRightReginBeginX = (int)(iWidth * 0.6);
-
+            int ikChestRightReginBeginX = (int)(iWidth * 0.55);
 
             if (skeletonManos != null)
             {
@@ -388,11 +352,5 @@ namespace Tetris
             DepthImagePoint depthPoint = this.miKinect.CoordinateMapper.MapSkeletonPointToDepthPoint(posicionDeJoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);
         }
-
-
-
-
         #endregion
-
     }
-}

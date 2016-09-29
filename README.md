@@ -1,5 +1,5 @@
 # Tetris Kinect
-Tetris based taken from: https://github.com/Sekagra/Tetris
+Tetris base code taken from: https://github.com/Sekagra/Tetris
 
 
 

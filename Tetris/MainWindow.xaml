@@ -33,6 +33,7 @@
             <controls:SettingsView x:Name="viewSettings" Visibility="Hidden" HorizontalAlignment="Stretch" Settings="{Binding Path=Settings}" Style="{StaticResource ViewBackground}" />
             <controls:ScoresView x:Name="viewScores" Visibility="Hidden" HorizontalAlignment="Stretch" Style="{StaticResource ViewBackground}" />
             <controls:CreditsView x:Name="viewCredits" Visibility="Hidden" HorizontalAlignment="Stretch" Style="{StaticResource ViewBackground}" />
+            
             <Canvas Name="kinectJoints" Margin="10,10,0,10">
                 <Ellipse x:Name="PunteroPecho" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Black" RenderTransformOrigin="1.493,2.146" ></Ellipse>
                 <Ellipse x:Name="PunteroManoIzq" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Green" RenderTransformOrigin="1.493,2.146" ></Ellipse>

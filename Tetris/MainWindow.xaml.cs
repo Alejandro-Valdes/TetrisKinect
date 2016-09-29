@@ -17,6 +17,7 @@ using Tetris.Sounds;
 using Microsoft.Kinect;
 using System.IO;
 using System.Windows.Threading;
+using Tetris.Views;
 
 namespace Tetris
 {
@@ -35,7 +36,7 @@ namespace Tetris
             /// miKinect,  this object represents the Kinect hooked up to the pc
             /// we use it to access the data of the different streams (Video, Depth, Skeleton)
             /// </summary>
-        private KinectSensor miKinect;
+            private KinectSensor miKinect;
 
             private Settings _settings;
             public Settings Settings 
@@ -75,6 +76,9 @@ namespace Tetris
                     // Habilitamos el Stream de Skeleton
                     this.miKinect.SkeletonStream.Enable();
 
+                    this.miKinect.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
+
+
                     // Asignamos el event handler que se llamara cada vez que SkeletonStream tenga un frame de datos disponible 
                     this.miKinect.SkeletonFrameReady += this.miKinectSkeletonFrameReady;
 
@@ -84,9 +88,9 @@ namespace Tetris
                         this.miKinect.Start();
 
                         timer = new DispatcherTimer();
-                        timer = new DispatcherTimer();
-                        timer.Interval = new TimeSpan(0, 0, 0, 0, 750);
+                        timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
                         timer.Tick += new EventHandler(checaManos);
+                        timer.Tick += new EventHandler(checaPecho);
                         timer.IsEnabled = true;
 
                         LineaIzq.X1 = this.ActualWidth * .3;
@@ -101,12 +105,12 @@ namespace Tetris
 
                         LineaCadera.X1 = 0;
                         LineaCadera.X2 = this.ActualWidth;
-                        LineaCadera.Y1 = this.ActualHeight * .6;
+                        LineaCadera.Y1 = this.ActualHeight * .5;
                         LineaCadera.Y2 = LineaCadera.Y1;
 
                         LineaManos.X1 = 0;
                         LineaManos.X2 = this.ActualWidth;
-                        LineaManos.Y1 = this.ActualHeight * .3;
+                        LineaManos.Y1 = this.ActualHeight * .5;
                         LineaManos.Y2 = LineaManos.Y1;
 
                 }
@@ -282,7 +286,6 @@ namespace Tetris
 
             if (skeletonManos != null)
             {
-                Console.WriteLine("SKELETON");
                 Joint miManoIzq = skeletonManos.Joints[JointType.HandLeft];
                 Joint miManoDer = skeletonManos.Joints[JointType.HandRight];
 
@@ -298,18 +301,14 @@ namespace Tetris
 
                 if (viewGame.Tetris != null)
                 {
-                    Console.WriteLine("JUEGO");
-                    if (mainYDer < (this.ActualHeight * .3) && mainYIzq < (this.ActualHeight * .3))
+                    if (mainYDer < (this.ActualHeight * .5) && mainYIzq < (this.ActualHeight * .5))
                     {
-                        Console.WriteLine("MANOS");
-                        if (mainYIzq < mainYDer)
+                        if (mainYIzq < mainYDer && (mainYDer - mainYIzq > 50))
                         {
-                            Console.WriteLine("IZQ < DER Clock");
                             viewGame.Game_KeyDown(rotate);
                         }
                         else
                         {
-                            Console.WriteLine("IZQ > DER Counter");
                         }
                     }
                     else
@@ -320,15 +319,47 @@ namespace Tetris
             }
         }
 
-        private void dibujaJoint(Joint miJoint, UIElement puntero)
+        private void checaPecho(object sender, EventArgs e)
         {
-            //Console.WriteLine(this.ActualWidth + " " + this.ActualHeight);
+            var left = Tetris.Model.TetrisCommand.LEFT;
+            var right = Tetris.Model.TetrisCommand.RIGHT;
+
             int iWidth = (int)this.ActualWidth;
             int iHeight = (int)this.ActualHeight;
 
-            int ikChestLeftRegionEndX = (int) (iWidth * 0.3);
+            int ikChestLeftRegionEndX = (int)(iWidth * 0.3);
             int ikChestRightReginBeginX = (int)(iWidth * 0.6);
-            int ikHipCenterRegionEndY = (int)(iHeight * 0.6);
+
+
+            if (skeletonManos != null)
+            {
+                Joint miPecho = skeletonManos.Joints[JointType.ShoulderCenter];
+
+                if (viewGame.Tetris != null)
+                {
+                    if (mainX < ikChestLeftRegionEndX && mainX >= 0)
+                    {
+                        viewGame.Game_KeyDown(left);
+                    }
+                    else if (mainX > ikChestRightReginBeginX && mainX <= this.ActualWidth)
+                    {
+                        viewGame.Game_KeyDown(right);
+                    }
+                    else
+                    {
+                        viewGame.Game_KeyUp(left);
+                        viewGame.Game_KeyUp(right);
+                    }
+                }
+            }
+        }
+
+        private void dibujaJoint(Joint miJoint, UIElement puntero)
+        {
+            int iWidth = (int)this.ActualWidth;
+            int iHeight = (int)this.ActualHeight;
+
+            int ikHipCenterRegionEndY = (int)(iHeight * 0.5);
 
             // Si el Joint esta listo obtenemos sus coordenadas y pasamos a visualizalo en el Canvas
             if (miJoint.TrackingState == JointTrackingState.Tracked)
@@ -340,28 +371,7 @@ namespace Tetris
                 puntero.SetValue(Canvas.TopProperty, mainY - 12.5);
                 puntero.SetValue(Canvas.LeftProperty, mainX - 12.5);
 
-                var left = Tetris.Model.TetrisCommand.LEFT;
-                var right = Tetris.Model.TetrisCommand.RIGHT;
                 var down = Tetris.Model.TetrisCommand.DOWN;
-
-                if (miJoint.JointType.Equals(JointType.ShoulderCenter) && viewGame.Tetris != null)
-                {
-                    if (mainX < ikChestLeftRegionEndX && mainX >= 0)
-                    {
-                        viewGame.Game_KeyDown(left);
-                        //Console.WriteLine("Soy IZQ");
-                    }
-                    else if (mainX > ikChestRightReginBeginX && mainX <= this.ActualWidth)
-                    {
-                        viewGame.Game_KeyDown(right);
-                        //Console.WriteLine("Soy DER");
-                    }
-                    else
-                    {
-                        viewGame.Game_KeyUp(left);
-                        viewGame.Game_KeyUp(right);
-                    }
-                }
 
                 if (miJoint.JointType.Equals(JointType.HipCenter) && viewGame.Tetris != null)
                 {

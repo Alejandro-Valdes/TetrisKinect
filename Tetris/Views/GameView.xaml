@@ -6,6 +6,7 @@
              xmlns:k="http://schemas.microsoft.com/kinect/2013"
              xmlns:controls="clr-namespace:Tetris.Controls"
              xmlns:model="clr-namespace:Tetris.Model.UI"
+             Loaded="Window_Loaded" 
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="600">
     <model:OverlayUserControl.CommandBindings>
@@ -23,6 +24,16 @@
         <controls:TetrisGrid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Tetris="{Binding}" />
         <controls:InfoControl Grid.Column="1" Grid.Row="0" Score="{Binding Path=Score}" Level="{Binding Path=Level}" ClearedLines="{Binding Path=ClearedLines}" NextBlock="{Binding Path=NextBlock}" Margin="10,0,0,0" />
         <controls:GameOver x:Name="ctrlGameOver" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="Hidden" Opacity="0" />
-        <k:KinectTileButton Click="cmdMenu_Click" Label="Menu" x:Name="cmdMenu" Height="Auto" Margin="20,95,18,19" Width="Auto" Background="Red" Grid.Column="1" Grid.Row="1"/>
+
+        <Canvas Name="kinectJoints" Margin="-10,-4,-5,-5">
+            <Ellipse x:Name="PointHead" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Red" RenderTransformOrigin="1.493,2.146" ></Ellipse>
+            <Ellipse x:Name="PointHandL" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Green" RenderTransformOrigin="1.493,2.146"  ></Ellipse>
+            <Ellipse x:Name="PointHandR" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Green" RenderTransformOrigin="1.493,2.146" ></Ellipse>
+            <Ellipse x:Name="PointHip" Width="56" Height="56" Canvas.Left="207" Canvas.Top="196" Fill="Blue" RenderTransformOrigin="1.493,2.146" ></Ellipse>
+            <Line x:Name="LineL" Stroke="red" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" Opacity="0.45"/>
+            <Line x:Name="LineR" Stroke="red" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" Opacity="0.45"/>
+            <Line x:Name="LineHip" Stroke="blue" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" Opacity="0.45"/>
+            <Line x:Name="LineHands" Stroke="green" X1="0" Y1="0" X2="0" Y2="0" StrokeThickness="5" Opacity="0.45"/>
+        </Canvas>
     </Grid>
 </model:OverlayUserControl>

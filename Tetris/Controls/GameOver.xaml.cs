@@ -1,5 +1,6 @@
 ﻿using Microsoft.Kinect;
 using Microsoft.Kinect.Toolkit;
+using System;
 using System.Windows;
 using Tetris.Model;
 using Tetris.Model.UI;
@@ -48,9 +49,17 @@ namespace Tetris.Controls
             if (null != this.miKinect)
             {
                 // Habilitamos el Stream de Skeleton
-                this.miKinect.SkeletonStream.Enable();
+                //this.miKinect.SkeletonStream.Enable();
                 this.miKinect.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
-                kinectRegion.KinectSensor = this.miKinect;
+
+                try
+                {
+                    kinectRegion.KinectSensor = this.miKinect;
+                }
+                catch (Exception error)
+                {
+
+                };
             }
         }
 

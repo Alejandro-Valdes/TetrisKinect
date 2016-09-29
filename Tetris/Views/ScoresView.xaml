@@ -28,13 +28,13 @@
             IsReadOnly="True"
             HorizontalScrollBarVisibility="Hidden"
             VerticalScrollBarVisibility="Hidden"
-            SizeChanged="dgrHighscores_SizeChanged" Grid.Row="1">
+            SizeChanged="dgrHighscores_SizeChanged">
             <!--
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Num." Width="2*" Binding="{Binding Path=Nr}" />
                 <DataGridTextColumn Header="Player" Width="6*" Binding="{Binding Path=Player}" />
                 <DataGridTextColumn Header="Score" Width="4*" Binding="{Binding Path=Points}" />
-            </DataGrid.Columns>-->
+            </DataGrid.Columns> -->
         </DataGrid>
         <k:KinectRegion x:Name="kinectRegion" Margin="0,32,0,0" Grid.Row="1" Grid.RowSpan="2">
             <k:KinectTileButton Click="cmdBack_Click" Label="Back" x:Name="cmdBack" Height="Auto" Margin="10,377,10,10" Width="Auto" Background="Black" Grid.Row="2"/>

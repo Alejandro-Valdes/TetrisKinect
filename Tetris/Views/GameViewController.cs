@@ -78,7 +78,9 @@ namespace Tetris.Views
         {
             if (_timers.ContainsKey(command)) _timers[command].Stop();
 
-            _tetris.ResetSoftDrop();
+            try{
+                _tetris.ResetSoftDrop();
+            }catch (Exception e) { };
         }
 
         #region Tetris object's events

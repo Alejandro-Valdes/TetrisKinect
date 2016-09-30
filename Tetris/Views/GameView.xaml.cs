@@ -105,7 +105,6 @@ namespace Tetris.Views
             
         }
 
-
         private void QuitGame_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -117,7 +116,6 @@ namespace Tetris.Views
             
             this.Hide();
         }
-
 
         private static void Tetris_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
@@ -157,7 +155,6 @@ namespace Tetris.Views
 
                 this.miKinect.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
 
-
                 // Asignamos el event handler que se llamara cada vez que SkeletonStream tenga un frame de datos disponible 
                 this.miKinect.SkeletonFrameReady += this.miKinectSkeletonFrameReady;
 
@@ -189,8 +186,6 @@ namespace Tetris.Views
                     iHandsAreaEndY = (int)(this.ActualHeight * 0.35);
 
                     drawLines();
-
-
                 }
                 catch (IOException)
                 {
@@ -240,9 +235,7 @@ namespace Tetris.Views
                     }
                 }
             }
-
         }
-
 
         /// <summary>
         /// Gets the coordinates of the selected joint
@@ -373,7 +366,6 @@ namespace Tetris.Views
                     _controller.KeyUp(command);
                 }
             }
-
         }
 
         private void drawJoint(Joint jntJoint, UIElement pointer)
@@ -429,7 +421,6 @@ namespace Tetris.Views
                 uiElement.Visibility = Visibility.Visible;
             }
         }
-
         #endregion
     }
 }

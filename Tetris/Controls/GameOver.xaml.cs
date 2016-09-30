@@ -63,20 +63,9 @@ namespace Tetris.Controls
             }
         }
 
-        private void cmdSubmit_Click(object sender, RoutedEventArgs e)
-        {
-            Highscores.Instance.Add(Score, txtName.Text);
-            grpName.Visibility = Visibility.Collapsed;
-        }
-
         private static void Score_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             var __this = (GameOver)sender;
-
-            if (Highscores.Instance.CheckScore((int)args.NewValue))
-                __this.grpName.Visibility = Visibility.Visible;
-            else
-                __this.grpName.Visibility = Visibility.Hidden;
         }
 
         private void cmdQuit_Click(object sender, RoutedEventArgs e)

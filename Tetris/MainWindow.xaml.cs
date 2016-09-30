@@ -17,7 +17,6 @@ namespace Tetris
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-
         #region Fields
         private Settings _settings;
         public Settings Settings
@@ -35,14 +34,12 @@ namespace Tetris
         }
         #endregion
 
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Start playing the background music
             Settings.MusicPlayer.PlayResourceFile(new Uri("Tetris;component/Sounds/Music/Gee.mp3", UriKind.Relative));
         }
         #region Events
-
 
             #region Execute incoming registered RoutedCommands
         private void StartGame_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -56,7 +53,6 @@ namespace Tetris
             viewGame.Show();
             viewGame.Tetris.StartGame();
         }
-
 
         private void EnterSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -83,11 +79,6 @@ namespace Tetris
             viewScores.Show();
         }
 
-        private void EnterCredits_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
         #endregion
 
         //Pass Key-Events to the Game
@@ -105,15 +96,8 @@ namespace Tetris
                 viewGame.Game_KeyUp(__key.Command);
         }
 
-        private void Window_Deactivated(object sender, EventArgs e)
-        {
-            if (viewGame.IsDisplayed && !viewGame.Tetris.IsPaused)
-                viewGame.Tetris.PauseGame();
-        }
-
         private void Window_Closed(object sender, EventArgs e)
         {
-            //Serialize the settings
             //Delete the temp files
             Settings.Instance.MusicPlayer.Dispose();
             Settings.Instance.SoundPlayer.Dispose();

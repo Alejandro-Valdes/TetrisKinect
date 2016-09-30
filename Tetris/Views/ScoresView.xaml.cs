@@ -57,20 +57,6 @@ namespace Tetris.Views
         private void cmdBack_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-        } 
-        
-        public new void Show()
-        {
-            base.Show();
-
-            dgrHighscores.ItemsSource = null;
-            dgrHighscores.ItemsSource = Highscores.Instance.Scores.OrderByDescending(s => s.Points);
-        }
-
-        private void dgrHighscores_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (dgrHighscores.ActualHeight > 23)
-                dgrHighscores.RowHeight = (dgrHighscores.ActualHeight - 33) / 10;
         }
     }
 }

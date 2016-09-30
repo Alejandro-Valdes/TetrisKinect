@@ -15,27 +15,26 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Viewbox Grid.Row="0" StretchDirection="Both" Stretch="Uniform">
-            <TextBlock Text="High Scores" FontFamily="Calibri" FontWeight="Bold" Height="17" />
+            <TextBlock Text="Instructions" FontFamily="Calibri" FontWeight="Bold" Height="17" />
         </Viewbox>
-        <DataGrid Grid.Row="1" Name="dgrHighscores" Margin="0,4.667,0,0.333"
-            CanUserSortColumns="False"
-            CanUserResizeColumns="False"
-            CanUserResizeRows="False"
-            CanUserReorderColumns="False"
-            IsManipulationEnabled="False"
-            RowBackground="LightGray"
-            RowHeaderWidth="0"
-            IsReadOnly="True"
-            HorizontalScrollBarVisibility="Hidden"
-            VerticalScrollBarVisibility="Hidden"
-            SizeChanged="dgrHighscores_SizeChanged">
-            <!--
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Num." Width="2*" Binding="{Binding Path=Nr}" />
-                <DataGridTextColumn Header="Player" Width="6*" Binding="{Binding Path=Player}" />
-                <DataGridTextColumn Header="Score" Width="4*" Binding="{Binding Path=Points}" />
-            </DataGrid.Columns> -->
-        </DataGrid>
+        <Viewbox Grid.Row="1" Margin="0,14,0,323">
+            <TextBlock Text="-Use your hand to select the buttons and navigate" FontFamily="Calibri" FontWeight="Bold" Height="17" Width="278" />
+        </Viewbox>
+        <Viewbox Grid.Row="1" Margin="0,76,0,261">
+            <TextBlock Text="-Move your head left and right over the red lines to move" FontFamily="Calibri" FontWeight="Bold" Height="17" Width="324" />
+        </Viewbox>
+        <Viewbox Grid.Row="1" Margin="0,104,0,233">
+            <TextBlock Text=" the blocks" FontFamily="Calibri" FontWeight="Bold" Height="17" Width="324" />
+        </Viewbox>
+        <Viewbox Grid.Row="1" Margin="0,152,0,185">
+            <TextBlock Text="-Move your hips below the blue line to drop the blocks faster" FontFamily="Calibri" FontWeight="Bold" Height="17" Width="324" />
+        </Viewbox>
+        <Viewbox Grid.Row="1" Margin="0,202,0,135">
+            <TextBlock Text="-To rotate the blocks both hands must be above the green line," FontFamily="Calibri" FontWeight="Bold" Height="17" Width="318" />
+        </Viewbox>
+        <Viewbox Grid.Row="1" Margin="0,234,0,103">
+            <TextBlock Text=" then lift your left hand above the right" FontFamily="Calibri" FontWeight="Bold" Height="17" Width="318" />
+        </Viewbox>
         <k:KinectRegion x:Name="kinectRegion" Margin="0,32,0,0" Grid.Row="1" Grid.RowSpan="2">
             <k:KinectTileButton Click="cmdBack_Click" Label="Back" x:Name="cmdBack" Height="Auto" Margin="10,377,10,10" Width="Auto" Background="Black" Grid.Row="2"/>
         </k:KinectRegion>

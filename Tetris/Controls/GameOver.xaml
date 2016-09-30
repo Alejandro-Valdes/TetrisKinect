@@ -51,16 +51,6 @@
                             <TextBlock Text="Points" />
                         </Viewbox>
                     </Grid>
-                    <GroupBox Name="grpName" Grid.Column="1" Grid.Row="2" Header="Enter your Name:" Margin="0,10,0,10" Visibility="Collapsed">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*" />
-                                <ColumnDefinition Width="6*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBox Name="txtName" Grid.Column="0" FontWeight="Bold" FontSize="20" Margin="0,0,5,0" />
-                            <k:KinectTileButton Click="cmdSubmit_Click" Grid.Column="1" Label="Submit" x:Name="cmdSubmit" Height="80" Margin="10.333,3,9.667,10.333" Width="150" Background="Green"/>
-                        </Grid>
-                    </GroupBox>
                     <k:KinectTileButton Click="cmdQuit_Click" Label="Quit" Command="{x:Static model:Commands.QuitGame}" x:Name="cmdQuit" Height="100" Margin="10,10.333,10,14.333" Width="Auto" Background="Red" Grid.Column="1" Grid.Row="3"/>
                 </Grid>
             </k:KinectRegion>
